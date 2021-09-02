@@ -6,6 +6,8 @@ const server = express();
 const cors = require("cors");
 const helmet = require("helmet");
 var session = require("express-session");
+const jwt = require("jsonwebtoken");
+const secret = require('../../secrets');
 
 // set trust proxy
 server.set("trust proxy", 1);
@@ -33,52 +35,48 @@ server.use(cors({
   credentials: true
 }));
 
-// set up cookies
-var sess = {
-  secret: "keyboard cat",
-  httpOnly: true,
-  resave: false,
-  saveUninitialized: false,
-  genid: function (req) {
-    return genuuid();
-  },
-  cookie: {
-    maxAge: 60000
-  },
-};
-
+// File Specific Endpoints
 // set up test proxy based on environment
 if (server.get("env") === "production") {
   server.set("trust proxy", 1);
   session.cookie.secure = true;
 }
 
+// function to generate random session id
+  generateId = () => {
+    var id = Math.random().toString(36).substr(2, 9);
+
+    return id;
+}
+
+// function to generate Cookie Session Id to send to front end
+
+  generateToken = (id) => {
+    const payload = {
+        subject: id,
+    };
+
+    const options = {
+        expiresIn: '1d',
+    };
+
+    return jwt.sign(payload, secret.jwtSecret, options);
+  }
+
 // set cookie when accessing landing page
 
 server.get("/cookie", (req, res) => {
-  req.session.name = "Frodo";
-  res.send('got it');
+  
+  const id = generateId();
+
+  const token = generateToken(id);
+  
+  res.status(200).json({
+    message: 'authorization received',
+    token: token
+  });
+
   console.log('got it');
 });
-
-server.get('/greet', (req, res) => {
-  let sessName = req.session.name;
-  res.send(`hello, ${sessName}`);
-  console.log(`hello ${sessName}`)
-});
-
-// server.get("/client-session", function (req, res, next) {  
-//   if (req.session.views) {
-//     req.session.views++;
-//     res.setHeader("Content-Type", "text/html");
-//     res.write("<p>views: " + req.session.views + "</p>");
-//     res.write("<p>expires in: " + req.session.cookie.maxAge / 1000 + "s</p>");
-//     res.end();
-//   } else {
-//     req.session.views = 1;
-//     res.end("welcome to the session demo. refresh!");
-//   }
-// });
-
 
 module.exports = server;
