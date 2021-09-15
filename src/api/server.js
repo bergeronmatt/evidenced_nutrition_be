@@ -12,6 +12,12 @@ const secret = require('../../secrets');
 // set trust proxy
 server.set("trust proxy", 1);
 
+const secure = process.env.SECURE;
+const uninit = process.env.SAVE_UNINIT;
+
+console.log('secure: ', secure);
+console.log('uninit: ', uninit);
+
 // set server to use objects
 server.use(cors());
 server.use(helmet());
@@ -20,13 +26,12 @@ server.use(session({
   name: 'notsession',
   secret: 'keyboard cat',
   cookie: {
-    name: 'Bilbo',
     maxAge: 1 * 24 * 60 * 60 * 1000,
-    secure: false, //set true in production
-    httpOnly: true,
+    secure: true, //set true in production
   },
+  httpOnly: true,
   resave: false, 
-  saveUninitialized: true, //set to false for production GDPR laws against setting cookies automatically
+  saveUninitialized: false, //set to false for production GDPR laws against setting cookies automatically
 }));
 
 server.use(cors({
@@ -57,7 +62,7 @@ if (server.get("env") === "production") {
     };
 
     const options = {
-        expiresIn: '1d',
+        expiresIn: 1 * 24 * 60 * 60 * 1000,
     };
 
     return jwt.sign(payload, secret.jwtSecret, options);

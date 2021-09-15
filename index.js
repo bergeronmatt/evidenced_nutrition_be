@@ -5,7 +5,7 @@ require('dotenv').config();
 const server = require('./src/api/server');
 
 // set up the env port and backup port
-const port = process.env.BACKEND_PORT || 4000;
+const port = process.env.BACKEND_PORT || 5000;
 
 // listen to the server
 server.listen(port, () => {
