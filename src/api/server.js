@@ -9,15 +9,6 @@ var session = require("express-session");
 const jwt = require("jsonwebtoken");
 const secret = require('../../secrets');
 
-// set trust proxy
-server.set("trust proxy", 1);
-
-const secure = process.env.SECURE;
-const uninit = process.env.SAVE_UNINIT;
-
-console.log('secure: ', secure);
-console.log('uninit: ', uninit);
-
 // set server to use objects
 server.use(cors());
 server.use(helmet());
@@ -34,11 +25,13 @@ server.use(session({
   saveUninitialized: false, //set to false for production GDPR laws against setting cookies automatically
 }));
 
-server.use(cors({
-  origin: 'https://evidenced-nutrition-q6oj1xu4h-bergeronmatt.vercel.app/',
-  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
-  credentials: true
-}));
+// server.use(cors({
+//   origin: 'https://evidenced-nutrition-q6oj1xu4h-bergeronmatt.vercel.app/',
+//   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+//   credentials: true
+// }));
+
+server.use(cors());
 
 // function to generate random session id
   generateId = () => {
