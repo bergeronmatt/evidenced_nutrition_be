@@ -35,17 +35,10 @@ server.use(session({
 }));
 
 server.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://evidenced-nutrition-q6oj1xu4h-bergeronmatt.vercel.app/',
   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
   credentials: true
 }));
-
-// File Specific Endpoints
-// set up test proxy based on environment
-if (server.get("env") === "production") {
-  server.set("trust proxy", 1);
-  session.cookie.secure = true;
-}
 
 // function to generate random session id
   generateId = () => {
