@@ -9,8 +9,14 @@ var session = require("express-session");
 const jwt = require("jsonwebtoken");
 const secret = require('../../secrets');
 
+
+
 // set server to use objects
-server.use(cors());
+server.use(cors({
+  origin: process.env.ORIGIN,
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+  credentials: true
+}));
 server.use(helmet());
 server.use(express.json());
 server.use(session({
@@ -18,11 +24,11 @@ server.use(session({
   secret: 'keyboard cat',
   cookie: {
     maxAge: 1 * 24 * 60 * 60 * 1000,
-    secure: true, //set true in production
+    secure: process.env.SECURE, //set true in production
   },
   httpOnly: true,
   resave: false, 
-  saveUninitialized: false, //set to false for production GDPR laws against setting cookies automatically
+  saveUninitialized: process.env.SAVE_UNINIT, //set to false for production GDPR laws against setting cookies automatically
 }));
 
 // server.use(cors({
@@ -30,8 +36,6 @@ server.use(session({
 //   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
 //   credentials: true
 // }));
-
-server.use(cors());
 
 // function to generate random session id
   generateId = () => {
