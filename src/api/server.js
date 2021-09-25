@@ -11,12 +11,10 @@ const secret = require('../../secrets');
 
 
 // set server to use objects
-server.use(cors());
-// server.use(cors({
-//   origin: process.env.ORIGIN,
-//   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
-//   credentials: true
-// }));
+server.use(cors({
+  origin: process.env.ORIGIN,
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD']
+}));
 server.use(helmet());
 server.use(express.json());
 server.use(session({
