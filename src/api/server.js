@@ -24,6 +24,7 @@ server.use(session({
   cookie: {
     maxAge: 1 * 24 * 60 * 60 * 1000,
     secure: process.env.SECURE, //set true in production
+    sameSite: process.env.SAME_SITE //set to 'none' in production
   },
   httpOnly: true,
   resave: false, 
