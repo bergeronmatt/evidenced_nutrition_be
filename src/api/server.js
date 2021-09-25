@@ -10,7 +10,6 @@ const jwt = require("jsonwebtoken");
 const secret = require('../../secrets');
 
 
-
 // set server to use objects
 server.use(cors({
   origin: process.env.ORIGIN,
@@ -55,7 +54,7 @@ server.use(session({
         expiresIn: 1 * 24 * 60 * 60 * 1000,
     };
 
-    return jwt.sign(payload, secret.jwtSecret, options);
+    return jwt.sign(payload, process.env.JWT_SECRET, options);
   }
 
 // set cookie when accessing landing page
