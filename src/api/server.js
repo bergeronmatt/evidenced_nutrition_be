@@ -12,7 +12,8 @@ const jwt = require("jsonwebtoken");
 // set server to use objects
 server.use(cors({
   origin: process.env.ORIGIN,
-  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD']
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+  credentials: true
 }));
 server.use(helmet());
 server.use(express.json());
