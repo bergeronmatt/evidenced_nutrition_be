@@ -7,7 +7,6 @@ const cors = require("cors");
 const helmet = require("helmet");
 var session = require("express-session");
 const jwt = require("jsonwebtoken");
-const secret = require('../../secrets');
 
 
 // set server to use objects
