@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 
 // set server to use objects
 server.use(cors({
-  origin: process.env.ORIGIN,
+  origin: "https://evidenced-nutrition.vercel.app/",
   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
   credentials: true
 }));
