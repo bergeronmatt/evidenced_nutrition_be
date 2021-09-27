@@ -7,7 +7,6 @@ const cors = require("cors");
 const helmet = require("helmet");
 var session = require("express-session");
 const jwt = require("jsonwebtoken");
-const { generateToken } = require("./cookie");
 
 
 // set server to use objects
@@ -63,10 +62,12 @@ server.use(session({
 server.get("/cookie", (req, res) => {
   
   const id = generateId();
+
+  const token = generateToken(id);
   
   res.status(200).json({
     message: 'authorization received',
-    token: generateToken(id)
+    token: token
   });
 
   console.log('got it');
