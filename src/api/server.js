@@ -66,7 +66,7 @@ server.get("/cookie", (req, res) => {
   
   res.status(200).json({
     message: 'authorization received',
-    token: generateToken(id);
+    token: generateToken(id)
   });
 
   console.log('got it');
