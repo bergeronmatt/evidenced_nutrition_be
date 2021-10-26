@@ -3,7 +3,7 @@ const express = require("express");
 
 // set up server objects
 const server = express();
-// const cors = require("cors");
+const cors = require("cors");
 const helmet = require("helmet");
 var session = require("express-session");
 const jwt = require("jsonwebtoken");
@@ -12,7 +12,9 @@ const secrets = require("../../secrets");
 
 
 // set server to use objects
-// server.use(cors());
+server.use(cors({
+  origin: process.env.ORIGIN,
+}));
 // server.use(cors({
 //   origin: "https://evidenced-nutrition.vercel.app/",
 //   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
@@ -38,12 +40,6 @@ server.use(session({
   }
 }));
 
-// server.use(cors({
-//   origin: 'https://evidenced-nutrition-q6oj1xu4h-bergeronmatt.vercel.app/',
-//   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
-//   credentials: true
-// }));
-
 // function to generate random session id
   generateId = () => {
     var id = Math.random().toString(36).substr(2, 9);
@@ -65,14 +61,6 @@ server.use(session({
     return jwt.sign(payload, process.env.JWT_SECRET, options);
   }
 
-// set cookie when accessing landing page
-
-  generateCookie = (name, value, options) => {
-
-    
-
-  }
-
 server.get("/cookie", (req, res) => {
   
   const id = generateId();
@@ -88,7 +76,6 @@ server.get("/cookie", (req, res) => {
 });
 
 server.post('/cookie', (req, res) => {
-  // res.json(req.body);
 
   console.log('session: ', req.session);
 
