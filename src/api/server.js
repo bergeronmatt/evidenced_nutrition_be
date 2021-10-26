@@ -3,7 +3,7 @@ const express = require("express");
 
 // set up server objects
 const server = express();
-const cors = require("cors");
+// const cors = require("cors");
 const helmet = require("helmet");
 var session = require("express-session");
 const jwt = require("jsonwebtoken");
