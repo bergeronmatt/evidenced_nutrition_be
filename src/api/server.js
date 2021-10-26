@@ -11,22 +11,8 @@ const bcrypt = require('bcryptjs');
 const secrets = require("../../secrets");
 
 server.use(helmet())
-server.use(cors({
-  origin: process.env.ORIGIN,
-  credentials: true,
-  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
-}))
+server.use(cors());
 
-// set server to use objects
-// server.use(cors({
-//   // origin: process.env.ORIGIN,
-// }));
-// server.use(cors({
-//   origin: "https://evidenced-nutrition.vercel.app/",
-//   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
-//   credentials: true
-// }));
-server.use(helmet());
 server.use(express.json());
 server.use(session({
   name: 'SID',
@@ -42,7 +28,7 @@ server.use(session({
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: "",
-    secure: process.env.SECURE, //set to true for production
+    // secure: process.env.SECURE, //set to true for production
   }
 }));
 
