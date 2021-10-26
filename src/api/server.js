@@ -10,7 +10,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const secrets = require("../../secrets");
 
-server.use(cors());
+server.use(cors({
+  origin: 'https://evidenced-nutrition.vercel.app/',
+}));
 
 server.use(express.json());
 server.use(session({
