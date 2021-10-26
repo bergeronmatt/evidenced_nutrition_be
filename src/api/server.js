@@ -28,7 +28,8 @@ server.use(session({
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: "",
-    // secure: process.env.SECURE, //set to true for production
+    secure: process.env.SECURE, //set to true for production,
+    sameSite: 'none',
   }
 }));
 
