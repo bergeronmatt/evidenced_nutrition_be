@@ -10,28 +10,27 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const secrets = require("../../secrets");
 
-server.use(helmet())
 server.use(cors());
 
 server.use(express.json());
-server.use(session({
-  name: 'SID',
-  secret: process.env.COOKIE_SECRET,
-  genid: function(req) {
-    return Math.random().toString(36).substr(2, 9);;
-  },
-  httpOnly: true,
-  resave: false, 
-  saveUninitialized: process.env.SAVE_UNINIT, //set to false for production GDPR laws against setting cookies automatically
-  cookie : {
-    domain: "",
-    httpOnly: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    path: "",
-    secure: process.env.SECURE, //set to true for production,
-    sameSite: 'none',
-  }
-}));
+// server.use(session({
+//   name: 'SID',
+//   secret: process.env.COOKIE_SECRET,
+//   genid: function(req) {
+//     return Math.random().toString(36).substr(2, 9);;
+//   },
+//   httpOnly: true,
+//   resave: false, 
+//   saveUninitialized: process.env.SAVE_UNINIT, //set to false for production GDPR laws against setting cookies automatically
+//   cookie : {
+//     domain: "",
+//     httpOnly: true,
+//     maxAge: 30 * 24 * 60 * 60 * 1000,
+//     path: "",
+//     secure: process.env.SECURE, //set to true for production,
+//     sameSite: 'none',
+//   }
+// }));
 
 // function to generate random session id
   generateId = () => {
@@ -60,6 +59,8 @@ server.get("/cookie", (req, res) => {
 
   const token = generateToken(id);
 
+
+
   res.status(200).json({
     message: 'authorization received',
     token: token,
@@ -68,19 +69,19 @@ server.get("/cookie", (req, res) => {
   console.log('got it');
 });
 
-server.post('/cookie', (req, res) => {
+// server.post('/cookie', (req, res) => {
 
-  console.log('session: ', req.session);
+//   console.log('session: ', req.session);
 
-  let {path} = req.body;
-  console.log('req.body: ', req.body);
+//   let {path} = req.body;
+//   console.log('req.body: ', req.body);
 
-  req.session.cookie.path = path;
+//   req.session.cookie.path = path;
 
-  console.log('path: ', req.session.cookie.path);
+//   console.log('path: ', req.session.cookie.path);
 
-  res.json(req.session);
+//   res.json(req.session);
 
-})
+// })
 
 module.exports = server;
