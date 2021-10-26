@@ -5,7 +5,11 @@ require('dotenv').config();
 const server = require('./src/api/server');
 const cors = require('cors')
 
-server.use(cors());
+server.use(cors({
+    origin: "https://evidenced-nutrition.vercel.app/",
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+    credentials: true,
+}));
 
 // set up the env port and backup port
 const port = process.env.PORT || 5000;

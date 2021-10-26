@@ -12,7 +12,7 @@ const secrets = require("../../secrets");
 
 
 // set server to use objects
-server.use(cors());
+// server.use(cors());
 // server.use(cors({
 //   origin: "https://evidenced-nutrition.vercel.app/",
 //   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
