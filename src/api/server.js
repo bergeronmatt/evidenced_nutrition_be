@@ -10,11 +10,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const secrets = require("../../secrets");
 
+server.use(helmet());
+server.use(cors())
 
 // set server to use objects
-server.use(cors({
-  origin: process.env.ORIGIN,
-}));
+// server.use(cors({
+//   // origin: process.env.ORIGIN,
+// }));
 // server.use(cors({
 //   origin: "https://evidenced-nutrition.vercel.app/",
 //   methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
