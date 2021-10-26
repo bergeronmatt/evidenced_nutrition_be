@@ -10,8 +10,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const secrets = require("../../secrets");
 
-server.use(helmet());
-server.use(cors())
+server.use(helmet())
+server.use(cors({
+  origin: process.env.ORIGIN,
+  credentials: true,
+  methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
+}))
 
 // set server to use objects
 // server.use(cors({
