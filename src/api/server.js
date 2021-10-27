@@ -15,6 +15,6 @@ server.get('/api', (req, res) => {
 });
 
 // End Points
-server.use('/api/auth', auth.router);
+server.use('/api/auth', auth);
 
 module.exports = server;
