@@ -58,6 +58,14 @@ router.get('/', (req, res) => {
             session: req.session,
             token: token
         });
+});
+
+router.get('/consult', (req, res) => {
+    res.status(200)
+        .json({
+            message: 'Consult Request Received',
+            session: req.session,
+        })
 })
 
 module.exports = router;
