@@ -52,10 +52,12 @@ router.get('/', (req, res) => {
     const id = generateId();
     const token = generateToken(id);
 
-    res.status(200).send('success', {
-        session: req.session,
-        token: token
-    });
+    res.status(200)
+        .json({
+            message: 'Access Cookies',
+            session: req.session,
+            token: token
+        });
 })
 
 module.exports = router;
