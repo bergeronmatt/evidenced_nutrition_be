@@ -49,8 +49,8 @@ generateToken = (id) => {
 
 router.get('/', (req, res) => {
 
-    let id = generateId();
-    let token = generateToken(id);
+    const id = generateId();
+    const token = generateToken(id);
 
     res.status(200).send('success', {
         session: req.session,
