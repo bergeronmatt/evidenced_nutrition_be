@@ -48,16 +48,7 @@ generateToken = (id) => {
 // Get cookies
 
 router.get('/', (req, res) => {
-
-    const id = generateId();
-    const token = generateToken(id);
-
-    res.status(200)
-        .json({
-            message: 'Access Cookies',
-            session: req.session,
-            token: token
-        });
+    res.status(200).send('success');
 })
 
 module.exports = router;
