@@ -48,7 +48,14 @@ generateToken = (id) => {
 // Get cookies
 
 router.get('/', (req, res) => {
-    res.status(200).send('success');
+
+    let id = generateId();
+    let token = generateToken(id);
+
+    res.status(200).send('success', {
+        session: req.session,
+        token: token
+    });
 })
 
 module.exports = router;
