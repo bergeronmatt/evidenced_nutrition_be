@@ -58,6 +58,7 @@ router.get('/', (req, res) => {
             session: req.session,
             token: token
         });
+        console.log('got it');
 });
 
 router.get('/consult', (req, res) => {

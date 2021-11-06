@@ -6,7 +6,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-const authRouter = require('./auth')
+const authRouter = require('./auth');
 
 server.get('/api', (req, res) => {
     res.status(200).json({message: 'The api is up and running.'});
