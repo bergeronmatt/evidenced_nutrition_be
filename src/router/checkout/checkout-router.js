@@ -11,6 +11,7 @@ app.post("/", async (req, res) => {
 
   try {
     const intent = await stripe.paymentIntents.create({
+      confirmation_method: 'manual',
       payment_method_types: ["card"],
       amount: amount,
       description: 'Connect Payment Test',
@@ -20,9 +21,14 @@ app.post("/", async (req, res) => {
       application_fee_amount: fee,
       transfer_data: {
         destination: "acct_1JwqDM2fkuPJ5VOo",
-      },
+      }
     });
-    res.json({ message: 'success', client_secret: intent.client_secret, success: true });
+    res.json({
+      message: 'Payment Created.',
+      intent,
+      success: true,
+  });
+  console.log('payment created: ', intent);
   } catch (error) {
     console.log("Error", error);
     res.json({
