@@ -3,11 +3,11 @@ const app = express();
 const stripe = require("stripe")(process.env.STRIPE_SK);
 
 app.post("/", async (req, res) => {
-  // TODO: change this to take in the req body from applicants/self filled intake forms
-  // when it's front end ready
-  let {amount, id} = req.body;
+  let {amount, id, customer} = req.body;
 
   let fee = amount * .05;
+
+  console.log('customer id: ', req.body);
 
   try {
     const intent = await stripe.paymentIntents.create({
@@ -16,6 +16,7 @@ app.post("/", async (req, res) => {
       amount: amount,
       description: 'Connect Payment Test',
       payment_method: id,
+      customer: customer,
       confirm: true,
       currency: "usd",
       application_fee_amount: fee,
