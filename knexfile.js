@@ -1,59 +1,58 @@
 // Update with your config settings.
+require("dotenv").config();
 
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: "mysql2",
     connection: {
-      filename: "./data/better-professor.db3",
+      host: "127.0.0.1",
+      port: 3306,
+      user: "root",
+      password: "Ranarok152021!",
+      database: "sys",
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations",
+      directory: "./src/data/migrations",
     },
     seeds: {
-      directory: "./data/seeds",
+      directory: "./src/data/seeds",
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        // runs after a connection is made to the sqlite engine
-        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
-      },
-    },
+    pool: { min: 0, max: 7 },
   },
 
   testing: {
-    client: "sqlite3",
+    client: "mysql2",
     connection: {
-      filename: "./data/better-professor-testing.db3",
+      host: "127.0.0.1",
+      port: 3306,
+      user: "root",
+      password: "Ranarok152021!",
+      database: "sys",
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations",
+      directory: "./src/data/migrations",
     },
     seeds: {
-      directory: "./data/seeds",
+      directory: "./src/data/seeds",
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        // runs after a connection is made to the sqlite engine
-        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
-      },
-    },
+    pool: { min: 0, max: 7 },
   },
 
   production: {
-    client: "postgresql",
+    client: "mysql2",
     connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      directory: "./data/migrations",
+      directory: "./src/data/migrations",
       tableName: "knex_migrations",
     },
     seeds: {
-      directory: "./data/seeds",
+      directory: "./src/data/seeds",
     },
   },
 };
