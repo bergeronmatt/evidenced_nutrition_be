@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bergeronmatt/evidenced_nutrition_be#readme",
   "dependencies": {
+    "@vscode/sqlite3": "^5.0.7",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.10",
@@ -33,7 +34,6 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "pg": "^8.6.0",
-    "sqlite3": "^5.0.2",
     "stripe": "^8.189.0",
     "universal-cookie": "^4.0.4",
     "uuid": "^8.3.2"
