@@ -94,6 +94,7 @@ router.post('/login', (req, res) => {
 
         const token = generateAuthToken(payload)
 
+        res.header('Authorization', `${token}`)
         res.status(200).json({ message: 'login successful', token: token })
 
       }
