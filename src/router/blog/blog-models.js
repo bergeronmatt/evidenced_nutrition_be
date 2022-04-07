@@ -5,7 +5,8 @@ function getImages() {
 }
 
 function findImage(id) {
-    return db('images').where({ id }).first()
+    const image = db('images').where({ id }).first()
+    return image;
 }
 
 function addImage(name, data) {

@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 var session = require("express-session");
 const jwt = require("jsonwebtoken");
+const Auth = require('./auth-models/user-auth');
+const bcrypt = require('bcryptjs');
+const secret = require('../../secrets');
 
 const router = express.Router();
 router.use(cors());
@@ -46,6 +49,60 @@ generateToken = (id) => {
 
   return jwt.sign(payload, process.env.JWT_SECRET, options);
 };
+
+// create Auth token for User Dashboard access
+function generateAuthToken(payload) {
+
+  console.log('token check: ', payload)
+
+  const options = {
+    expiresIn: 7 * 24 * 60 * 60 * 1000,
+    issuer: 'Ley Line Development',
+  }
+
+  return jwt.sign(payload, process.env.JWT_SECRET, options)
+
+}
+
+// Login Route
+router.post('/login', (req, res) => {
+
+  console.log('username: ', req.body.username)
+  console.log('password: ', req.body.password)
+
+  let credentials = {
+    email: req.body.username,
+    password: bcrypt.hashSync(req.body.password, secret.hashRounds)
+  }
+
+  Auth.authUser(credentials).then(user => {
+
+    if (!user) {
+      res.status(401).json({ message: 'unrecognized user' })
+      return;
+    } else {
+      if (!bcrypt.compareSync(req.body.password, user.password)) {
+        res.status(401).json({ message: 'incorrect password' })
+        return
+      } else {
+        const payload = {
+          userId: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName
+        };
+
+        const token = generateAuthToken(payload)
+
+        res.status(200).json({ message: 'login successful', token: token })
+
+      }
+
+    }
+
+  })
+
+})
 
 // Get cookies
 

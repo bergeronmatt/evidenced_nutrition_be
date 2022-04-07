@@ -27,21 +27,19 @@ function checkFileType(file, cb) {
 
 Router.post('/image_upload', async (req, res) => {
 
-
     console.log('req check', req.files)
     console.log('name check: ', req.files.data.name)
     console.log('data check: ', req.files.data.data)
 
-    let name = req.files.data.name;
-    let data = req.files.data.data;
+    const { name, data } = req.files.data;
 
     Blog.addImage(name, data).then(img => {
-            if (!img) {
-                res.status(400).json({ errorMessage: 'Could not save image' })
-            } else {
-                res.status(200).json({ message: 'Image added' })
-            }
-        })
+        if (!img) {
+            res.status(400).json({ errorMessage: 'Could not save image' })
+        } else {
+            res.status(200).json({ message: 'Image added' })
+        }
+    })
         .catch(err => res.status(500).json({ errorMessage: err }))
 })
 
@@ -55,6 +53,22 @@ Router.get('/get_images', (req, res) => {
         })
         .catch(err => {
             res.status(500).json({ errorMessage: `Error, could not retrieve images: ${err}` })
+        })
+})
+
+Router.get('/get_images/:id', async (req, res) => {
+    let id = req.params.id
+    console.log('id: ', id)
+    Blog.findImage(id)
+        .then(img => {
+            if (!img) {
+                res.status(400).json({ errorMessage: 'Could not find image.' })
+            } else {
+                res.end(img.image)
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: 'Could not access images.' })
         })
 })
 
