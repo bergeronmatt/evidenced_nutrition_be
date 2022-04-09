@@ -78,7 +78,7 @@ router.post('/login', (req, res) => {
   Auth.authUser(credentials).then(user => {
 
     if (!user) {
-      res.status(401).json({ message: 'unrecognized user' })
+      res.status(403).json({ message: 'unrecognized user' })
       return;
     } else {
       if (!bcrypt.compareSync(req.body.password, user.password)) {
@@ -125,5 +125,19 @@ router.get("/consult", (req, res) => {
     session: req.session,
   });
 });
+
+router.get('/verify', (req, res) => {
+  if (!req.headers.authorization) {
+    res.status(403).json({
+      message: 'Forbidden',
+      href: '/unauthorized',
+    })
+    return
+  }
+  res.status(200).json({
+    message: "Verified User it's working here",
+    headers: req.headers
+  })
+})
 
 module.exports = router;
