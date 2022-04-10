@@ -28,10 +28,13 @@ function checkFileType(file, cb) {
 Router.post('/image_upload', async (req, res) => {
 
     console.log('req check', req.files)
-    console.log('name check: ', req.files.data.name)
-    console.log('data check: ', req.files.data.data)
+    console.log('name check: ', req.files.myFile.name)
+    console.log('data check: ', req.files.myFile.data)
 
-    const { name, data } = req.files.data;
+    const { name, data } = req.files.myFile;
+
+
+    // res.status(200).json({ message: 'got the image' })
 
     Blog.addImage(name, data).then(img => {
         if (!img) {
