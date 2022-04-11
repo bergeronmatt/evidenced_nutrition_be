@@ -28,10 +28,13 @@ function checkFileType(file, cb) {
 Router.post('/image_upload', async (req, res) => {
 
     console.log('req check', req.files)
-    console.log('name check: ', req.files.myFile.name)
-    console.log('data check: ', req.files.myFile.data)
+    // console.log('name check: ', req.files.myFile.name)
+    // console.log('data check: ', req.files.myFile.data)
 
-    const { name, data } = req.files.myFile;
+    const { name, data } = req.files.data;
+
+    console.log('name: ', name)
+    console.log('data: ', data)
 
 
     // res.status(200).json({ message: 'got the image' })
@@ -39,11 +42,13 @@ Router.post('/image_upload', async (req, res) => {
     Blog.addImage(name, data).then(img => {
         if (!img) {
             res.status(400).json({ errorMessage: 'Could not save image' })
+            console.log('error 1')
         } else {
             res.status(200).json({ message: 'Image added' })
+            console.log('success')
         }
-    })
-        .catch(err => res.status(500).json({ errorMessage: err }))
+    }).catch(err => res.status(500).json({ errorMessage: err }))
+
 })
 
 Router.get('/get_images', (req, res) => {
