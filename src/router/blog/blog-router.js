@@ -80,4 +80,37 @@ Router.get('/get_images/:id', async (req, res) => {
         })
 })
 
+// Blog Posts
+
+Router.get('/posts', (req, res) => {
+    Blog.getPosts()
+        .then(blog => {
+            res.status(200).json({ message: `rendering blog list:`, object: blog })
+        })
+        .catch(err => {
+            res.status(500).json({ errorMessage: `Error, could not retrieve blog: ${err}` })
+        })
+})
+
+Router.post('/new_post', (req, res) => {
+
+    let {data} = req.body;
+
+    // console.log('request: ', data)
+
+    try {
+        Blog.addPost(data)
+            .then(() => {
+                res.sendStatus(200)
+            })
+    } catch(err) {
+        res.status(500).json({message: `Error, could not post to the db: ${err}`})
+    }
+
+    // const data = req.body;
+
+    // res.status(200).json({message: 'success', data: data})
+
+})
+
 module.exports = Router;

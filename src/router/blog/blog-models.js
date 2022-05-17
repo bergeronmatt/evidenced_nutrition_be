@@ -24,9 +24,21 @@ function deleteImage(id) {
     return db('image').where('id', id).del()
 }
 
+function getPosts() {
+    return db('blog');
+}
+
+function addPost(data) {
+    return db('blog')
+        .insert(data, 'id')
+}
+
+
 module.exports = {
     getImages,
     findImage,
     addImage,
-    deleteImage
+    deleteImage,
+    getPosts,
+    addPost,
 }

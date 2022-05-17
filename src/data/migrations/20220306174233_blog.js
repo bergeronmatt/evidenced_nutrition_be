@@ -17,7 +17,7 @@ exports.up = function (knex) {
     tbl.datetime("createdAt").notNullable();
     tbl.datetime("updatedAt");
     tbl.datetime("publishedAt").notNullable();
-    tbl.text("content").notNullable();
+    tbl.blob("content").notNullable();
   });
 };
 

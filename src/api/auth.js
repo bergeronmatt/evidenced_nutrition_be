@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const Auth = require('./auth-models/user-auth');
 const bcrypt = require('bcryptjs');
 const secret = require('../../secrets');
+const User = require('../router/users/user-model')
 
 const router = express.Router();
 router.use(cors());
@@ -138,6 +139,27 @@ router.get('/verify', (req, res) => {
     message: "Verified User it's working here",
     headers: req.headers
   })
+})
+
+router.put('/reset-password', (req, res) => {
+
+  const {email, password} = req.body;
+
+  User.findUserByEmail(email)
+    .then(user => {
+      if(!user) {
+        res.sendStatus(400)
+      } else {
+        User.updatePassword(email, password)
+          .then(update => {
+            if(!update) {
+              res.sendStatus(501)
+            } else {
+              res.sendStatus(200)
+            }
+          })
+      }
+    })
 })
 
 module.exports = router;

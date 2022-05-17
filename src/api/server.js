@@ -7,7 +7,7 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors({
-  origin: process.env.WHITELIST
+  origin: 'http://localhost:3000'
 }));
 
 const authRouter = require("./auth");
