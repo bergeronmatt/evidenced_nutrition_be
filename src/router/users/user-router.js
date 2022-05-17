@@ -1,8 +1,7 @@
 const express = require("express");
-
 const Users = require("./user-model.js");
-
 const Router = express.Router();
+const { validateUser } = require('../../api/auth-models/user-auth')
 
 /* Get all Users */
 
@@ -15,6 +14,10 @@ Router.get("/", (req, res) => {
       res.status(401).json({ message: "Error retrieving user list: ", err });
     });
 });
+
+Router.get('/dashboard', validateUser, (req, res) => {
+  res.status(200).json({ message: 'dashboard success' })
+})
 
 /* Find user by id */
 
@@ -32,7 +35,7 @@ Router.get("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(501),
+      res.status(501).
         json({ message: `Server error, could not retrieve user: ${err}` });
     });
 });
@@ -94,5 +97,6 @@ Router.delete("/:id", (req, res) => {
         .json({ message: `Server error, could not delete user: ${err}` });
     });
 });
+
 
 module.exports = Router;

@@ -1,15 +1,12 @@
 // Update with your config settings.
 require("dotenv").config();
 
+
 module.exports = {
   development: {
-    client: "mysql2",
+    client: 'sqlite3',
     connection: {
-      host: "127.0.0.1",
-      port: 3306,
-      user: "root",
-      password: "Ranarok152021!",
-      database: "sys",
+      filename: "./src/data/data.db3"
     },
     useNullAsDefault: true,
     migrations: {
@@ -18,17 +15,19 @@ module.exports = {
     seeds: {
       directory: "./src/data/seeds",
     },
-    pool: { min: 0, max: 7 },
+    pool: {
+      afterCreate: (conn, done) => {
+        // runs after a connection is made to the sqlite engine
+        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+      },
+    },
   },
 
+
   testing: {
-    client: "mysql2",
+    client: 'sqlite3',
     connection: {
-      host: "127.0.0.1",
-      port: 3306,
-      user: "root",
-      password: "Ranarok152021!",
-      database: "sys",
+      filename: "./src/data/data.db3"
     },
     useNullAsDefault: true,
     migrations: {
@@ -37,8 +36,14 @@ module.exports = {
     seeds: {
       directory: "./src/data/seeds",
     },
-    pool: { min: 0, max: 7 },
+    pool: {
+      afterCreate: (conn, done) => {
+        // runs after a connection is made to the sqlite engine
+        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+      },
+    },
   },
+
 
   production: {
     client: "mysql2",
@@ -55,4 +60,4 @@ module.exports = {
       directory: "./src/data/seeds",
     },
   },
-};
+}

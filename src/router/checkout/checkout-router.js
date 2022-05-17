@@ -7,7 +7,6 @@ app.post("/", async (req, res) => {
 
   let fee = amount * .05;
 
-  console.log('customer id: ', req.body);
 
   try {
     const intent = await stripe.paymentIntents.create({
@@ -29,7 +28,6 @@ app.post("/", async (req, res) => {
       intent,
       success: true,
   });
-  console.log('payment created: ', intent);
   } catch (error) {
     console.log("Error", error);
     res.json({

@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const secrets = require("../../secrets.js");
+const secrets = require("../../../secrets");
 
 // import { v4 as uuidv4 } from "uuid";
 
