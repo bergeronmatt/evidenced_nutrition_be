@@ -39,7 +39,6 @@ function updatePassword(email, password) {
 
 function validateUser(req, res, next) {
 
-    console.log('headers: ', req.headers)
 
     if (req.headers.authorization === undefined) {
         res.status(401).json({ message: 'Invalid Authorization 001' })

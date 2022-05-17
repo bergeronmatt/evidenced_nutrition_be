@@ -27,14 +27,12 @@ function checkFileType(file, cb) {
 
 Router.post('/image_upload', async (req, res) => {
 
-    console.log('req check', req.files)
     // console.log('name check: ', req.files.myFile.name)
     // console.log('data check: ', req.files.myFile.data)
 
     const { name, data } = req.files.data;
 
-    console.log('name: ', name)
-    console.log('data: ', data)
+
 
 
     // res.status(200).json({ message: 'got the image' })
@@ -66,7 +64,6 @@ Router.get('/get_images', (req, res) => {
 
 Router.get('/get_images/:id', async (req, res) => {
     let id = req.params.id
-    console.log('id: ', id)
     Blog.findImage(id)
         .then(img => {
             if (!img) {

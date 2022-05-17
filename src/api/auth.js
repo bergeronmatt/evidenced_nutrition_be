@@ -54,7 +54,6 @@ generateToken = (id) => {
 // create Auth token for User Dashboard access
 function generateAuthToken(payload) {
 
-  console.log('token check: ', payload)
 
   const options = {
     expiresIn: 7 * 24 * 60 * 60 * 1000,
@@ -68,8 +67,6 @@ function generateAuthToken(payload) {
 // Login Route
 router.post('/login', (req, res) => {
 
-  console.log('username: ', req.body.username)
-  console.log('password: ', req.body.password)
 
   let credentials = {
     email: req.body.username,
@@ -117,7 +114,6 @@ router.get("/", (req, res) => {
     session: req.session,
     token: token,
   });
-  console.log("got it");
 });
 
 router.get("/consult", (req, res) => {

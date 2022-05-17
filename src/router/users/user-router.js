@@ -16,7 +16,6 @@ Router.get("/", (req, res) => {
 });
 
 Router.get('/dashboard', validateUser, (req, res) => {
-  console.log('headers: ', req.headers)
   res.status(200).json({ message: 'dashboard success' })
 })
 
