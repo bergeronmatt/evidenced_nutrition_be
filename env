@@ -11,3 +11,5 @@ SAVE_UNINIT = false
 SECURE = true
 
 STRIPE_SK = " "
+
+WHITELIST = " "
