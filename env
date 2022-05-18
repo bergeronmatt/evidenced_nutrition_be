@@ -1,0 +1,13 @@
+PORT = 8080
+
+HASH_ROUNDS = 9
+
+JWT_SECRET = jormungandr
+
+COOKIE_SECRET = mjolnr
+
+SAVE_UNINIT = false 
+
+SECURE = true
+
+STRIPE_SK = " "

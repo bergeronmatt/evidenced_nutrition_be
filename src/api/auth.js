@@ -70,7 +70,7 @@ router.post('/login', (req, res) => {
 
   let credentials = {
     email: req.body.username,
-    password: bcrypt.hashSync(req.body.password, secret.hashRounds)
+    password: bcrypt.hashSync(req.body.password, process.env.HASH_ROUNDS)
   }
 
   Auth.authUser(credentials).then(user => {

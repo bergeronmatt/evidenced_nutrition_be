@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const secrets = require('../../../secrets')
 
 function encrypt(password) {
-  return bcrypt.hashSync(password, secrets.hashRounds)
+  return bcrypt.hashSync(password, process.env.HASH_ROUNDS)
 }
 
 function getUsers() {

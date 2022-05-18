@@ -45,7 +45,7 @@ function validateUser(req, res, next) {
         return
     } else {
         try {
-            if (!jwt.verify(req.headers.authorization, secret.jwtSecret)) {
+            if (!jwt.verify(req.headers.authorization, process.env.JWT_SECRET)) {
                 res.status(401).json({ message: 'Invalid Authorization 002' })
                 return
             }
