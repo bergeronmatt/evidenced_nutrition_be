@@ -1,10 +1,14 @@
 // import database
 const db = require("../../data/config.js");
 const bcrypt = require('bcryptjs');
-const secrets = require('../../../secrets')
 
 function encrypt(password) {
-  return bcrypt.hashSync(password, process.env.HASH_ROUNDS)
+
+  let rounds = parseInt(process.env.HASH_ROUNDS)
+  
+  var salt = bcrypt.genSaltSync(rounds)
+
+  return bcrypt.hashSync(password, salt)
 }
 
 function getUsers() {

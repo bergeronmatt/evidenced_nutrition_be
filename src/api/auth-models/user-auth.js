@@ -1,6 +1,5 @@
 const db = require('../../data/config');
 const bcrypt = require('bcryptjs');
-const secret = require('../../../secrets');
 const jwt = require('jsonwebtoken');
 
 function authUser(credentials) {
@@ -30,7 +29,7 @@ function updatePassword(email, password) {
         success = false
         return success
     } else {
-        const newPass = bcrypt.hashSync(password, secret.hashRounds)
+        const newPass = bcrypt.hashSync(password, process.env.HASH_ROUNDS)
         db('users').where('email', email).update('password', newPass)
         success = true
         return success

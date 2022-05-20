@@ -4,12 +4,12 @@ require('dotenv').config();
 // set up the server object
 const server = require('./src/api/server');
 
-// const cors = require("cors");
+const cors = require("cors");
 
-// server.use(cors({origin: process.env.WHITELIST}))
+server.use(cors())
 
 // set up the env port and backup port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 // listen to the server
 server.listen(port, () => {

@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/07a9f4e6-958e-4738-bf32-6f71b69e7faa/resourceGroups/evidenced-nutrition-be/providers/Microsoft.Web/sites/evidenced-nutrition-backend",
+    "appService.deploySubpath": "."
+}

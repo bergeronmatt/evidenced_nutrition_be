@@ -82,6 +82,7 @@ Router.get('/get_images/:id', async (req, res) => {
 Router.get('/posts', (req, res) => {
     Blog.getPosts()
         .then(blog => {
+            res.header('Access-Control-Allow-Origin', '*')
             res.status(200).json({ message: `rendering blog list:`, object: blog })
         })
         .catch(err => {
