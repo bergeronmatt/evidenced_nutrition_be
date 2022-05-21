@@ -6,6 +6,10 @@ const server = require('./src/api/server');
 
 const cors = require("cors");
 
+const corsOptions = {
+    origin: process.env.WHITELIST
+}
+
 server.use(cors())
 
 // set up the env port and backup port
