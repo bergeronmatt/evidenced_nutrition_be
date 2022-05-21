@@ -131,6 +131,8 @@ router.get('/verify', (req, res) => {
 router.put('/reset-password', (req, res) => {
   const { email, password } = req.body;
 
+  console.log('updating user...')
+
   User.findUserByEmail(email).then((user) => {
     if (!user) {
       res.sendStatus(400);

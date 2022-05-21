@@ -46,18 +46,22 @@ module.exports = {
 
 
   production: {
-    client: "mysql2",
-    connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10,
+    client: 'sqlite3',
+    connection: {
+      filename: "./src/data/data.db3"
     },
+    useNullAsDefault: true,
     migrations: {
       directory: "./src/data/migrations",
-      tableName: "knex_migrations",
     },
     seeds: {
       directory: "./src/data/seeds",
     },
-  },
+    pool: {
+      afterCreate: (conn, done) => {
+        // runs after a connection is made to the sqlite engine
+        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+      },
+    },
+  }
 }
