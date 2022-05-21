@@ -48,9 +48,11 @@ function updatePassword(email, newPass) {
 
   let password = encrypt(newPass);
 
-  return db('users')
+  db('users')
     .where({email})
     .update('password', password)
+
+    return
 }
 
 function deleteUser(id) {
