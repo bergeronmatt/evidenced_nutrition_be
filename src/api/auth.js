@@ -136,14 +136,15 @@ router.put('/reset-password', (req, res) => {
   User.findUserByEmail(email).then((user) => {
     if (!user) {
       res.sendStatus(400);
+    } else {
+      User.updatePassword(email, password).then((update) => {
+        if (!update) {
+          res.sendStatus(501);
+        } else {
+          res.sendStatus(200);
+        }
+      });
     }
-    User.updatePassword(email, password).then((update) => {
-      if (!update) {
-        res.sendStatus(501);
-      } else {
-        res.sendStatus(200);
-      }
-    });
   });
 });
 
