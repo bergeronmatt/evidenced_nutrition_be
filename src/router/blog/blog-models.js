@@ -33,6 +33,9 @@ function addPost(data) {
         .insert(data, 'id')
 }
 
+function getPost(title) {
+    return db('blog').where({ title }).first()
+}
 
 module.exports = {
     getImages,
@@ -41,4 +44,5 @@ module.exports = {
     deleteImage,
     getPosts,
     addPost,
+    getPost
 }
